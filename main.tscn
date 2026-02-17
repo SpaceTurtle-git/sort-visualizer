@@ -1,6 +1,164 @@
 [gd_scene format=3 uid="uid://nrevngyvbrc"]
 
 [ext_resource type="Script" uid="uid://cojeb1wrr8lrn" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://sljlpr3uyk42" path="res://images.png" id="2_0xm2m"]
+[ext_resource type="FontFile" uid="uid://ci3hl3oilj1sr" path="res://Minecraft.ttf" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cw6cciuhrur0s" path="res://cross.png" id="3_1bvp3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
+bg_color = Color(0, 0, 0, 0.70000005)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1bvp3"]
+font = ExtResource("2_h2yge")
+font_size = 25
+outline_size = 2
+outline_color = Color(0.029506557, 0.029506557, 0.029506557, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
+bg_color = Color(0.7792914, 0.7792914, 0.7792912, 1)
+border_width_left = 3
+border_width_top = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lquwl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mycd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1bvp3"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h2yge"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
 
 [node name="Node2D" type="Node2D" unique_id=1248507943]
 script = ExtResource("1_ig7tw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1280613065]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1919736068]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0xm2m")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer" unique_id=1958709889]
+layout_mode = 2
+theme_override_constants/margin_top = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer" unique_id=471526909]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer" unique_id=518148760]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_h2yge")
+theme_override_font_sizes/font_size = 50
+text = "Options"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer" unique_id=731794005]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Label2" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=1711242181]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Number of Bars"
+label_settings = SubResource("LabelSettings_1bvp3")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1568443960]
+layout_mode = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 300
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2" unique_id=1058411738]
+layout_mode = 2
+max_value = 2000.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer" unique_id=88870000]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Button" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3" unique_id=959832609]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_h2yge")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lquwl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7mycd")
+text = "RESET"
+
+[node name="MarginContainer4" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1725982125]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Button2" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4" unique_id=459139026]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_h2yge")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1bvp3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+text = "PAUSE"
+
+[node name="MarginContainer6" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer" unique_id=737497222]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Label2" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer6" unique_id=263368742]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SPEED"
+label_settings = SubResource("LabelSettings_1bvp3")
+
+[node name="MarginContainer5" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1743275097]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="SpinBox" type="SpinBox" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer5" unique_id=2135449444]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/up_icon_modulate = Color(0.68161285, 0.9823851, 0.23181501, 1)
+theme_override_colors/up_disabled_icon_modulate = Color(0.9607843, 0, 0, 1)
+theme_override_colors/down_icon_modulate = Color(0.7769512, 0.9533852, 0.33692658, 1)
+theme_override_colors/down_disabled_icon_modulate = Color(0.96024394, 0, 0, 1)
+theme_override_constants/buttons_width = 35
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1379537665]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 100.0
+icon = ExtResource("3_1bvp3")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button" type="Button" parent="." unique_id=1439129302]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 100.0
+action_mode = 0
+icon = ExtResource("2_0xm2m")
+flat = true
+expand_icon = true

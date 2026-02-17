@@ -9,31 +9,30 @@ var sorted_count = 0
 
 var sorted_bars = []
 
-@onready var screen_width = get_viewport_rect().size.x
-@onready var screen_height = get_viewport_rect().size.y
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generateArray()
 	print(data)
-	#call_quick_sort()
-	#print (data)
-	await bubble_sort(data)
-	print(data)
+	call_quick_sort()
+	print (data)
+	#await bubble_sort(data)
+	#print(data)
 
 func generateArray():
 	data.clear()
 	for i in range(array_size):
-		data.append(randi_range(12,720))
+		data.append(randf_range(0.1,1.0))
 	queue_redraw()
 
 func _draw():
+	var screen_width = get_viewport_rect().size.x
+	var screen_height = get_viewport_rect().size.y
 	if data.is_empty():
 		print("No value in array")
 		return
 	var bar_width = float(screen_width) / array_size
 	for i in range(data.size()):
-		var bar_height = data[i]  # Calculate Height (Value in array)
+		var bar_height = data[i] * screen_height  # Calculate Height (Value in array)
 		
 		var x_pos = i * bar_width 
 		var y_pos = screen_height - bar_height  #Godot's (0,0) is TOP-LEFT. 

@@ -7,6 +7,8 @@ var active_bar = -1
 var next_active_bar = -1
 var sorted_count = 0
 
+var sorted_bars = []
+
 @onready var screen_width = get_viewport_rect().size.x
 @onready var screen_height = get_viewport_rect().size.y
 
@@ -14,7 +16,7 @@ var sorted_count = 0
 func _ready() -> void:
 	generateArray()
 	print(data)
-	await quick_sort(data,0,array_size-1)
+	call_quick_sort()
 	print (data)
 	#await bubble_sort(data)
 	#print(data)
@@ -41,7 +43,8 @@ func _draw():
 		
 		# --- COLOR LOGIC ---
 		var bar_color = Color.WHITE
-		
+		if i in sorted_bars:
+			bar_color = Color.GREEN_YELLOW
 		if i >= array_size - sorted_count:
 			bar_color = Color.GREEN_YELLOW
 		if i == active_bar or i == next_active_bar:
@@ -80,12 +83,25 @@ func quick_sort(data,low,high):
 		for j in range (low,high):
 			if data[j] < pivot:
 				i+=1
+				active_bar = j
+				next_active_bar = i
 				swap(data,i,j)
 				queue_redraw()
 				await get_tree().create_timer(0.01).timeout
 		swap(data,i+1,high)
 		var pi = i+1
+		sorted_bars.append(pi)
 		await get_tree().create_timer(0.01).timeout
 		queue_redraw()
-		quick_sort(data,low,pi-1)
-		quick_sort(data,pi+1,high)
+		await quick_sort(data,low,pi-1)
+		await quick_sort(data,pi+1,high)
+
+func victory_sweep():
+	for i in range(array_size):
+		if i not in sorted_bars:
+			sorted_bars.append(i)
+	queue_redraw()
+	
+func call_quick_sort():
+	await quick_sort(data,0,array_size-1)
+	victory_sweep()

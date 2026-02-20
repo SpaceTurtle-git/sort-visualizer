@@ -2,6 +2,11 @@ extends Node2D
 
 var data = []
 var array_size = 100
+var speed = 1:
+	set(value):
+		speed = value
+		tick_speed = 1/speed
+var tick_speed = speed 
 
 var active_bar = -1
 var next_active_bar = -1
@@ -9,14 +14,30 @@ var sorted_count = 0
 
 var sorted_bars = []
 
+var is_paused = false
+var to_reset = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generateArray()
 	print(data)
-	call_quick_sort()
-	print (data)
-	#await bubble_sort(data)
-	#print(data)
+	#call_quick_sort()
+	#print (data)
+	await bubble_sort(data)
+	print(data)
+
+func check_if_paused():
+	while is_paused:
+		await get_tree().process_frame
+
+func reset():
+	sorted_count = 0
+	sorted_bars.clear()
+	active_bar = -1
+	next_active_bar = -1
+	to_reset = false
+	generateArray()
+	bubble_sort(data)
 
 func generateArray():
 	data.clear()
@@ -27,12 +48,14 @@ func generateArray():
 func _draw():
 	var screen_width = get_viewport_rect().size.x
 	var screen_height = get_viewport_rect().size.y
+	
 	if data.is_empty():
 		print("No value in array")
 		return
-	var bar_width = float(screen_width) / array_size
+		
 	for i in range(data.size()):
 		var bar_height = data[i] * screen_height  # Calculate Height (Value in array)
+		var bar_width = float(screen_width) / array_size
 		
 		var x_pos = i * bar_width 
 		var y_pos = screen_height - bar_height  #Godot's (0,0) is TOP-LEFT. 
@@ -44,7 +67,7 @@ func _draw():
 		var bar_color = Color.WHITE
 		if i in sorted_bars:
 			bar_color = Color.GREEN_YELLOW
-		if i >= array_size - sorted_count:
+		if i >= array_size - sorted_count:  #bubble sort exclusive
 			bar_color = Color.GREEN_YELLOW
 		if i == active_bar or i == next_active_bar:
 			bar_color = Color.RED # The bars currently being compared/moved
@@ -63,11 +86,17 @@ func bubble_sort(data):
 		for j in range(0,array_size-i-1):
 			active_bar = j
 			next_active_bar = j + 1
+			
+			await check_if_paused()
+			if to_reset == true:
+				reset()
+				return
+			
 			if data[j]>data[j+1]:
 				swap(data,j,j+1)
 				swapped = true
 				queue_redraw()
-				await get_tree().create_timer(0.01).timeout
+				await get_tree().create_timer(tick_speed).timeout
 		sorted_count +=1
 		queue_redraw()
 		if swapped == false:
@@ -84,13 +113,16 @@ func quick_sort(data,low,high):
 				i+=1
 				active_bar = j
 				next_active_bar = i
+				
+				await check_if_paused()
+				
 				swap(data,i,j)
 				queue_redraw()
-				await get_tree().create_timer(0.01).timeout
+				await get_tree().create_timer(tick_speed).timeout
 		swap(data,i+1,high)
 		var pi = i+1
 		sorted_bars.append(pi)
-		await get_tree().create_timer(0.01).timeout
+		await get_tree().create_timer(tick_speed).timeout
 		queue_redraw()
 		await quick_sort(data,low,pi-1)
 		await quick_sort(data,pi+1,high)
@@ -100,7 +132,7 @@ func victory_sweep():
 		if i not in sorted_bars:
 			sorted_bars.append(i)
 	queue_redraw()
-	
+
 func call_quick_sort():
 	await quick_sort(data,0,array_size-1)
 	victory_sweep()

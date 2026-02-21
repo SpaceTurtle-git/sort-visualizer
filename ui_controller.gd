@@ -5,6 +5,8 @@ extends CanvasLayer
 
 var barNewCount 
 
+signal algorithm_changed(index: int)
+
 func _ready():
 	self.hide() # Start with menu hidden
 
@@ -40,3 +42,7 @@ func _on_speed_box_value_changed(value: float) -> void:
 	var mainNode = get_tree().root.get_node("Node2D")
 	mainNode.speed = value
 	print("SpeedBox Used")
+
+
+func _on_sorting_algorithms_menu_item_selected(index: int) -> void:
+	algorithm_changed.emit(index)

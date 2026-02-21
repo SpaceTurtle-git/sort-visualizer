@@ -1,7 +1,9 @@
 extends Node2D
 
+@onready var ui_layer = $CanvasLayer
+
 var data = []
-var array_size = 100
+var array_size = 5
 var speed = 1:
 	set(value):
 		speed = value
@@ -17,14 +19,15 @@ var sorted_bars = []
 var is_paused = false
 var to_reset = false
 
+enum SortType { BUBBLE, QUICK, SELECTION, INSERTION}
+var current_sort_type = SortType.BUBBLE
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	ui_layer.algorithm_changed.connect(_on_algorithm_selected)
+	
 	generateArray()
-	print(data)
-	#call_quick_sort()
-	#print (data)
-	await bubble_sort(data)
-	print(data)
+	run_sorter()
 
 func check_if_paused():
 	while is_paused:
@@ -37,13 +40,35 @@ func reset():
 	next_active_bar = -1
 	to_reset = false
 	generateArray()
-	bubble_sort(data)
 
 func generateArray():
 	data.clear()
 	for i in range(array_size):
 		data.append(randf_range(0.1,1.0))
 	queue_redraw()
+
+func run_sorter():
+	while true:
+		# 1. Reset visual state before every sort
+		reset()
+		
+		# 2. Run the chosen algorithm
+		match current_sort_type:
+			SortType.BUBBLE:
+				await bubble_sort(data) 
+			SortType.QUICK:
+				await call_quick_sort() 
+			SortType.SELECTION:
+				await selection_sort(data)
+			SortType.INSERTION:
+				await insertion_sort(data)
+		
+		# 3. The "Idle" State
+		# After a sort finishes, we stay here until the user clicks 'Reset'
+		# or changes the algorithm (which sets to_reset = true)
+		print("Sort finished. Waiting for reset...")
+		while not to_reset:
+			await get_tree().process_frame 
 
 func _draw():
 	var screen_width = get_viewport_rect().size.x
@@ -89,7 +114,6 @@ func bubble_sort(data):
 			
 			await check_if_paused()
 			if to_reset == true:
-				reset()
 				return
 			
 			if data[j]>data[j+1]:
@@ -101,8 +125,7 @@ func bubble_sort(data):
 		queue_redraw()
 		if swapped == false:
 			break
-	active_bar = -1
-	next_active_bar = -1
+	victory_sweep()
 
 func quick_sort(data,low,high):
 	if low < high:
@@ -136,3 +159,60 @@ func victory_sweep():
 func call_quick_sort():
 	await quick_sort(data,0,array_size-1)
 	victory_sweep()
+
+func selection_sort(arr):
+	for i in range(array_size):
+		var min_idx = i
+		for j in range(i + 1, array_size):
+			active_bar = j
+			next_active_bar = min_idx
+			
+			if to_reset: 
+				return 
+			await check_if_paused()
+			
+			if arr[j] < arr[min_idx]:
+				min_idx = j
+			
+			queue_redraw()
+			await get_tree().create_timer(tick_speed).timeout 
+			
+		swap(arr, min_idx, i)
+		sorted_bars.append(i)
+	victory_sweep()
+
+func insertion_sort(arr):
+	for i in range(1, array_size):
+		var key = arr[i]
+		var j = i - 1
+		
+		# Highlight the bar we are currently trying to place
+		active_bar = i
+		
+		while j >= 0 and arr[j] > key:
+			next_active_bar = j
+			
+			if to_reset:
+				return
+			await check_if_paused()
+			
+			# Shift the bar over
+			arr[j + 1] = arr[j]
+			j -= 1
+			
+			queue_redraw()
+			await get_tree().create_timer(tick_speed).timeout
+			
+		# Place the bar in its final home for this pass
+		arr[j + 1] = key
+		
+		sorted_bars.append(i) 
+		queue_redraw()
+	victory_sweep()
+
+#SIGNALS \\\\\\\\\\\
+func _on_algorithm_selected(index: int):
+	# This function runs automatically when the signal is emitted
+	current_sort_type = index as SortType 
+	to_reset = true # This breaks the current 'await' loop to restart
+	print("Main: Algorithm changed to: ", current_sort_type)

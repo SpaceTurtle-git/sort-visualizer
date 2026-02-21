@@ -81,7 +81,7 @@ theme_override_constants/margin_right = 300
 [node name="numberOfBars" type="HSlider" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2" unique_id=1058411738]
 layout_mode = 2
 min_value = 5.0
-max_value = 500.0
+max_value = 300.0
 step = 5.0
 value = 5.0
 
@@ -150,15 +150,20 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/margin_top = 20
 
-[node name="sortingAlgorithmsMenu2" type="OptionButton" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer7" unique_id=698497553]
+[node name="sortingAlgorithmsMenu" type="OptionButton" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer7" unique_id=698497553]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-item_count = 2
+selected = 0
+item_count = 4
 popup/item_0/text = "Bubble Sort"
 popup/item_0/id = 0
 popup/item_1/text = "Quick Sort"
 popup/item_1/id = 1
+popup/item_2/text = "Selection Sort"
+popup/item_2/id = 2
+popup/item_3/text = "Insertion Sort"
+popup/item_3/id = 3
 
 [node name="closeButton" type="Button" parent="CanvasLayer" unique_id=1379537665]
 offset_left = 20.0
@@ -183,5 +188,6 @@ expand_icon = true
 [connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/resetButton" to="CanvasLayer" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/pauseButton" to="CanvasLayer" method="_on_pause_button_pressed"]
 [connection signal="value_changed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer5/speedBox" to="CanvasLayer" method="_on_speed_box_value_changed"]
+[connection signal="item_selected" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer7/sortingAlgorithmsMenu" to="CanvasLayer" method="_on_sorting_algorithms_menu_item_selected"]
 [connection signal="pressed" from="CanvasLayer/closeButton" to="CanvasLayer" method="_on_close_button_pressed"]
 [connection signal="pressed" from="settingsButton" to="CanvasLayer" method="_on_settings_button_pressed"]

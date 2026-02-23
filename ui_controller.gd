@@ -22,7 +22,7 @@ func _on_settings_button_pressed() -> void:
 
 func _on_number_of_bars_value_changed(value: float) -> void:
 	var mainNode = get_tree().root.get_node("Node2D")
-	mainNode.array_size = value
+	mainNode.array_size = int(value)
 	mainNode.to_reset = true
 	print("Slider Used")
 

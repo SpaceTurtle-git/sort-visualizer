@@ -48,14 +48,6 @@ A real-time sorting algorithm visualizer built with **Godot 4**. This tool allow
 
 ---
 
-## Planned Improvements
-
-*   **Batch Processing:** Implementing a "swaps-per-frame" system to bypass the 60fps engine limit for ultra-high-speed sorting.
-*   **Audio Feedback:** Adding sine-wave synthesis mapped to the value of the bars being sorted.
-*   **More Algorithms:** Adding Merge Sort, Heap Sort, and Insertion Sort.
-
----
-
 ## Downloads
 
 *   .exe file for Windows download in relases.

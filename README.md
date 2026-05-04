@@ -18,7 +18,7 @@ A real-time sorting algorithm visualizer built with **Godot 4**. This tool allow
 <img width="1284" height="718" alt="image" src="https://github.com/user-attachments/assets/4a835806-4e8f-4c76-9373-a6856187eff1" />
 
 ### Bubble Sort in Progress
-<img width="1291" height="751" alt="image" src="https://github.com/user-attachments/assets/ce4ceca7-da4e-4120-88b6-8779e82f316d" />
+<img width="1276" height="747" alt="image" src="https://github.com/user-attachments/assets/009d73c1-6b16-45de-a468-d185555a85ed" />
 
 ### Quick Sort Partitioning
 <img width="1282" height="745" alt="image" src="https://github.com/user-attachments/assets/0e6f6b6b-d65e-44fb-be55-ec7eb7d8c645" />
@@ -47,9 +47,9 @@ A real-time sorting algorithm visualizer built with **Godot 4**. This tool allow
 ## 🟩Downloads
 
 *   .exe file for Windows download in relases.
-*   .apk file for android in exe.
+*   .apk file for android in releases.
 
 ---
 ## 📜 License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[Apache 2.0]

@@ -2,17 +2,29 @@
 
 A real-time sorting algorithm visualizer built with **Godot 4**. This tool allows users to observe the mechanics of various sorting algorithms with granular control over speed, array size, and execution flow.
 
-## 🚀 Features
+## Features
 
-*   **Real-time Speed Manipulation:** Uses an inverse-mapped SpinBox (1–1000) to control sorting delays from **1.0s** down to **0.001s**.
-*   **Dynamic Array Scaling:** Adjustable bar counts that regenerate the dataset on the fly.
-*   **Interactive Controls:** Full support for **Pause/Resume** and **Instant Reset** logic.
-*   **Safety-First Architecture:** Implements "Kill Switch" flags to prevent "Zombie Sort" crashes when resetting during active execution.
-*   **Visual Feedback:** Distinct color states for **Active** (comparing), **Sorted**, and **Idle** elements.
+   **9 Different Sorting Algorithms**
+  * ***Bubble sort***: Repeatedly compares adjacent elements in a list, swapping them if they are in the wrong order until sorted. 
+  * ***Quick sort***: Picks a "pivot," partitioning the array into smaller and larger elements, then recursively sorts each sub-array until finished.
+  * ***Selection sort***: Repeatedly finds the minimum element from the unsorted portion and moves it to the beginning until the list's sorted.
+  * ***Insertion sort***: Builds a sorted array one item at a time by inserting each element into its correct, relative position.
+  * ***Shell sort***: Improves insertion sort by comparing elements separated by a gap, gradually reducing the gap until it equals one.
+  * ***Bogo sort***: Randomly shuffles elements until they are sorted. It is highly inefficient, relying entirely on luck and extreme persistence.
+  * ***Miracle sort***: Hopes for an external event, like a hardware error, to spontaneously reorder the list into perfect sequence.
+  * ***Stalin sort***: "Sorts" a list by eradicating any element that is out of order, leaving only a sorted sequence.
+  * ***Radix sort***: Radix sort processes integers by grouping them by individual digits, typically from least to most significant, using stable bucket sorting.  
+    
+   **Functionalities**
+  * *Modify the number of bars you want to sort.*
+  * *Pause the sorting process.*
+  * *Reset and Randomize all bars.*
+  * *Change tick speed to increase and decrease sorting speed.*
+  * *Change the sorting algorithm.*
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### Main Interface
 <img width="1284" height="718" alt="image" src="https://github.com/user-attachments/assets/4a835806-4e8f-4c76-9373-a6856187eff1" />
@@ -27,16 +39,16 @@ A real-time sorting algorithm visualizer built with **Godot 4**. This tool allow
 <img width="1600" height="702" alt="image" src="https://github.com/user-attachments/assets/d4c62bdc-7062-4dfd-83d3-434b7bee1751" />
 
 ---
-## 📖 How to Use
+## How to Use
 
 1.  **Adjust Bars:** Use the slider to set the number of elements to sort.
 2.  **Set Speed:** Use the SpinBox to define sorting velocity (Higher = Faster).
-3.  **Sort:** Choose an algorithm (Bubble Sort/Quick Sort) to begin.
+3.  **Sort:** Choose an algorithm (default is Bubble Sort) to begin.
 4.  **Pause/Reset:** Use the UI buttons to interrupt the process or start fresh at any time.
 
 ---
 
-## 🏗 Planned Improvements
+## Planned Improvements
 
 *   **Batch Processing:** Implementing a "swaps-per-frame" system to bypass the 60fps engine limit for ultra-high-speed sorting.
 *   **Audio Feedback:** Adding sine-wave synthesis mapped to the value of the bars being sorted.
@@ -44,7 +56,7 @@ A real-time sorting algorithm visualizer built with **Godot 4**. This tool allow
 
 ---
 
-## 🟩Downloads
+## Downloads
 
 *   .exe file for Windows download in relases.
 *   .apk file for android in releases.
